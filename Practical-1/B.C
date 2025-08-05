@@ -10,13 +10,13 @@
  }
 
 
- int main (){./
+ int main (){
 	int n;
-	// clrscr();
+	clrscr();
 	printf("Enter an integer: ");
     scanf("%d", &n);
     int ans = fibo(n);
     printf("The nth term of fibonacci series is %d.\n", ans);
-	// getch();
+	getch();
 	return 0;
  }

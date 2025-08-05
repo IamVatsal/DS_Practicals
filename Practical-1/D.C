@@ -5,7 +5,7 @@
 	int a[5];
     int sum = 0;
     float avg;
-	// clrscr();
+	clrscr();
 	printf("Enter 5 numbers:\n");
     int i;
     for(i=0;i<5;i++){
@@ -32,6 +32,6 @@
     printf("\nThe Minimum value of array is %d\n",min);
     printf("The Maximum value of array is %d\n",max);
     printf("The average of value of array is %f\n",avg);
-	// getch();
+	getch();
 	return 0;
  }

@@ -4,11 +4,11 @@
  int main (){
 	int a ,b ,sum = 0;
 	int *p = &a,*q = &b;
-	// clrscr();
+	clrscr();
 	printf("Enter a and b: ");
 	scanf("%d %d",&a,&b);
 	sum = *p + *q;
 	printf("The sum of a and b is %d",sum);
-	// getch();
+	getch();
 	return 0;
  }
