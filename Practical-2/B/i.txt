@@ -1,0 +1,36 @@
+B Discuss following concepts with an example 
+    i  Address Calculation of 1-D Array. 
+
+ 1D Array:
+o	A 1D array is a linear data structure that stores a fixed-size sequence of elements of the same data type.
+o	Elements are stored in contiguous memory locations (back-to-back without gaps).
+o	Each element is identified by a single subscript/index (e.g., arr[0], arr[1], etc.).
+o	The index starts from 0 and goes up to size-1.
+o	Memory address of element arr[i] is calculated as:
+
+Address of A[Index] = B + W * (Index - LB)
+
+Where:
+o	Index = The index of the element whose address is to be found.
+o	B = Base address of the array.
+o	W = Storage size of one element in bytes.
+o	LB = Lower bound of the index (if not specified, assume zero).
+o	Access time is O(1) because we can directly compute the location using the index.
+o	Example:
+
+int arr[5] = {10, 20, 30, 40, 50};
+printf("%d", arr[2]); // Outputs 30
+
+Example: Given the base address of an array A[1300 ………… 1900] as 1020 and the size of each element is 2 bytes in the memory, find the address of A[1700].
+Solution:
+Given:
+o	Base address (B) = 1020
+o	Lower bound (LB) = 1300
+o	Size of each element (W) = 2 bytes
+o	Index of element (not value) = 1700
+Formula Used:
+Address of A[Index] = B + W * (Index – LB)
+Address of A[1700]  = 1020 + 2 * (1700 – 1300) 
+         = 1020 + 2 * (400) 
+         = 1020 + 800 
+Address of A[1700] = 1820

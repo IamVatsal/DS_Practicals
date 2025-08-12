@@ -1,0 +1,85 @@
+B) Discuss following concepts with an example 
+    ii)  Address Calculation of 2-D Array using Row Major and Column Major Order
+
+2D Array:
+
+o	A 2D array is an array of arrays, stored in contiguous memory.
+o	Organized as a matrix with rows and columns.
+o	Declaration:
+
+type array[M][N];
+
+o	M = number of rows
+o	N = number of columns
+Row Major Order:
+o	Used in C language (default).
+o	Entire first row is stored, then the second row, and so on.
+o	Address of element A[i][j]:
+
+Address of A[I][J] = B + W * ((I – LR) * N + (J – LC))
+
+Where:
+o	I = Row Subset of an element whose address to be found
+o	J = Column Subset of an element whose address to be found
+o	B = Base address
+o	W = Storage size of one element store in an array(in byte)
+o	LR = Lower Limit of row/start row index of the matrix(If not given assume it as zero)
+o	LC = Lower Limit of column/start column index of the matrix(If not given assume it as zero)
+o	N = Number of column given in the matrix
+Column Major Order:
+o	Used in languages like Fortran.
+o	Entire first column is stored, then the second column, and so on.
+o	Address of element A[i][j]:
+
+Address of A[I][J] = B + W * ((J – LC) * M + (I – LR))
+
+Where:
+o	I = Row Subset of an element whose address to be found
+o	J = Column Subset of an element whose address to be found
+o	B = Base address
+o	W = Storage size of one element store in any array(in byte)
+o	LR = Lower Limit of row/start row index of matrix(If not given assume it as zero)
+o	LC = Lower Limit of column/start column index of matrix(If not given assume it as zero)
+o	M = Number of rows given in the matrix
+
+Example: Given an array arr[1………10][1………15] with a base value of 100 and the size of each element is 1 Byte in memory find the address of arr[8][6] with the help of column major order.
+Solution:
+Given:
+o	Base address (B) = 100
+o	Storage size of one element store in any array W = 1 Bytes 
+o	Row Subset of an element whose address to be found I = 8 
+o	Column Subset of an element whose address to be found J = 6 
+o	Lower Limit of row/start row index of matrix LR = 1 
+o	Lower Limit of column/start column index of matrix = 1
+o	Number of column given in the matrix N = Upper Bound – Lower Bound + 1
+                                                                   = 15 - 1 + 1
+                                                                   = 15
+Formula Used:
+Address of A[I][J] = B + W * ((I – LR) * N + (J – LC))
+
+Address of A[8][6]  = 100 + 1 * ((8 – 1) * 15 + (6 – 1)) 
+                                 = 100 + 1 * ((7) * 15 + (5))
+                                 = 100 + 1 * (110) 
+  
+Address of A[I][J] = 210
+
+Example: Given an array, arr[1………10][1………15] with base value 100 and the size of each element is 1 Byte in memory. Find the address of arr[8][6] with the help of row-major order.
+Solution:
+Given:
+o	Base address (B) = 100
+o	Storage size of one element store in any array W = 1 Bytes 
+o	Row Subset of an element whose address to be found I = 8 
+o	Column Subset of an element whose address to be found J = 6 
+o	Lower Limit of row/start row index of matrix LR = 1 
+o	Lower Limit of column/start column index of matrix = 1
+o	Number of column given in the matrix N = Upper Bound – Lower Bound + 1
+                                                                   = 10 - 1 + 1
+                                                                   = 10
+Formula Used:
+Address of A[I][J] = B + W * ((J – LC) * M + (I – LR))
+
+Address of A[8][6]  = 100 + 1 * ((6 – 1) * 10 + (8 – 1)) 
+                                 = 100 + 1 * ((5) * 10 + (7))
+                                 = 100 + 1 * (57) 
+  
+Address of A[I][J] = 157
