@@ -49,6 +49,11 @@ int pop(struct stack *ptr){
     }
 }
 
+int peek(struct stack *ptr){
+	if(ptr->top == -1) printf("Stack is empty!");
+	else return ptr->arr[ptr->top];
+}
+
 void display(struct stack *ptr){
 	int i;
 	printf("\nStack: ");
@@ -56,6 +61,7 @@ void display(struct stack *ptr){
 		printf("%d ", ptr->arr[i]);
 	}
 }
+
 void sAlloc(struct stack *ptr,int size){
 	ptr->size = size;
 	ptr->top = -1;
@@ -65,23 +71,31 @@ void sAlloc(struct stack *ptr,int size){
 		exit(1);
 	}
 }
+
 int main() {
 	struct stack *s = (struct stack*) malloc(sizeof(struct stack));
-
+	int i,size,temp;
 	if (s == NULL) {
 		printf("Memory allocation failed");
 		return 1;
 	}
 
-	sAlloc(s,10);
-	clrscr();
-	push(s,10);
-	push(s,20);
-	push(s,30);
+	// clrscr();
+	printf("Enter Size of Stack: ");
+	scanf("%d",&size);
+	sAlloc(s,size);
+
+	for(i = 0; i < size; i++){
+		printf("Push Num In Stack: ");
+		scanf("%d",&temp);
+		push(s,temp);
+	}
 	display(s);
 	pop(s);
+	printf("\nAfter poping one Time:");
 	display(s);
-	getch();
+	printf("\nPeek: %d",peek(s));
+	// getch();
 	free(s->arr);
 	free(s);
 	return 0;
