@@ -1,15 +1,16 @@
 #include <stdio.h>
 
 int main(){
-    int rows, cols, i, j;
+    // int rows = 3, cols = 3;
+    int i, j;
     int maxNum,count = 0;
     
-    printf("Enter number of rows: ");
-    scanf("%d", &rows);
-    printf("Enter number of columns: ");
-    scanf("%d", &cols);
+    // printf("Enter number of rows: ");
+    // scanf("%d", &rows);
+    // printf("Enter number of columns: ");
+    // scanf("%d", &cols);
 
-    int arr[rows][cols];
+    int arr[3][3];
     
 
     for(int i =0; i < 3; i++){
