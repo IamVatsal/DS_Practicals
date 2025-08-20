@@ -73,7 +73,7 @@ void sAlloc(struct stack *ptr,int size){
 }
 int main() {
 	struct stack *s = (struct stack*) malloc(sizeof(struct stack));
-	char str[20] = "[{(a+b) * c} - d])";
+	char str[20] = "[{(a+b) * c} - d]";
 	int i;
 	if (s == NULL) {
 		printf("Memory allocation failed");
@@ -81,7 +81,7 @@ int main() {
 	}
 
 	sAlloc(s,20);
-	clrscr();
+	// clrscr();
 	printf("Original String: ");
 	for(i = 0; str[i] != '\0';i++){
 		printf("%c",str[i]);
@@ -94,8 +94,8 @@ int main() {
         else if(str[i] == ')' || str[i] == '}' || str[i] == ']'){
             if(isEmpty(s)) {
                 // No matching opening bracket
-                printf("Expression is not Valid!");
-                getch();
+                printf("\nExpression is not Valid!");
+                // getch();
                 free(s->arr);
                 free(s);
                 return 0;
@@ -107,8 +107,8 @@ int main() {
                 pop(s);
             } else {
                 // Mismatched bracket
-                printf("Expression is not Valid!");
-                getch();
+                printf("\nExpression is not Valid!");
+                // getch();
                 free(s->arr);
                 free(s);
                 return 0;
@@ -116,12 +116,12 @@ int main() {
         }
 	}
 	if(isEmpty(s)){
-        printf("Expression is Valid!");
+        printf("\nExpression is Valid!");
     }else{
-        printf("Expression is not Valid!");
+        printf("\nExpression is not Valid!");
 
     }
-	getch();
+	// getch();
 	free(s->arr);
 	free(s);
 	return 0;
