@@ -50,7 +50,7 @@ char pop(struct stack *ptr){
     }
 }
 
-int peek(struct stack *ptr){
+char peek(struct stack *ptr){
 	if(ptr->top == -1) printf("Stack is empty!");
 	else return ptr->arr[ptr->top];
 }
@@ -71,33 +71,44 @@ void sAlloc(struct stack *ptr,int size){
 		exit(1);
 	}
 }
+
 int main() {
 	struct stack *s = (struct stack*) malloc(sizeof(struct stack));
-	char str[20] = "My Name Is Vatsal",str1[20];
-	int i;
+	char str[20] = "ababCbaba";
+	int i = 0;
 	if (s == NULL) {
 		printf("Memory allocation failed");
 		return 1;
 	}
 
 	sAlloc(s,20);
-	clrscr();
-	printf("Original String: ");
-	for(i = 0; str[i] != '\0';i++){
-		printf("%c",str[i]);
+	// clrscr();
+	while(str[i] != 'C' && str[i] != '\0' && str[i] != 'c'){
+		if(str[i] == 'a' || str[i] == 'b'){
+			push(s,str[i]);
+		}
+		else{
+			printf("String Rejected");
+			return 0;
+		}
+		i++;
 	}
-	for(i = 0; str[i] != '\0';i++){
-		push(s,str[i]);
+	i++;
+	while(str[i] != '\0'){
+		if(!isEmpty(s) && peek(s) == str[i]){
+			pop(s);
+		}else{
+			printf("String Rejected");
+			return 0;
+		}
+		i++;
 	}
-	for(i = 0;i < strlen(str);i++){
-		str1[i] = pop(s);
+	if(isEmpty(s)){
+		printf("String Accepted");
+	}else{
+		printf("String Rejected");
 	}
-	str1[i] = '\0';
-	printf("\nReversed String: ");
-	for(i = 0; str1[i] != '\0';i++){
-		printf("%c",str1[i]);
-	}
-	getch();
+	// getch();
 	free(s->arr);
 	free(s);
 	return 0;
