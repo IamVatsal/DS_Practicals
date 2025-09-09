@@ -10,39 +10,28 @@ struct stack {
 };
 
 int isEmpty(struct stack *ptr){
-	if(ptr->top == -1){
-		return 1;
-	}
-	else{
-		return 0;
-	}
+	return ptr->top == -1;
 }
 
 int isFull(struct stack *ptr){
-	if(ptr->top < ptr->size-1){
-		return 0;
-	}
-	else{
-		return 1;
-	}
+    return ptr->top == ptr->size-1;
 }
 
 char push(struct stack *ptr,char value){
 	if(!isFull(ptr)){
 		ptr->top++;
 		ptr->arr[ptr->top] = value;
-		return value;
+		return 1;
 	}else{
 		printf("\nStack Overflowed: stack is full!");
-		return -1;
+		return 0;
 	}
 }
 
 char pop(struct stack *ptr){
     if(!isEmpty(ptr)){
 	char temp = ptr->arr[ptr->top];
-	ptr->arr[ptr->top] = 0;
-	ptr->top--;
+	ptr->arr[ptr->top--] = 0;
 	return temp;
     }else{
 	printf("\nStack Underflowed: stack is empty!");
@@ -51,7 +40,10 @@ char pop(struct stack *ptr){
 }
 
 char peek(struct stack *ptr){
-	if(ptr->top == -1) printf("Stack is empty!");
+	if(isEmpty(ptr)){
+		printf("Stack is empty!");
+		return -1;
+	}
 	else return ptr->arr[ptr->top];
 }
 
@@ -79,6 +71,8 @@ char precedence(char operator) {
         case '*':
         case '/':
             return 2;
+        case '^':
+            return 3;
         default:
             return 0;
     }
@@ -86,7 +80,7 @@ char precedence(char operator) {
 
 int main() {
     struct stack *op = (struct stack*) malloc(sizeof(struct stack));
-    char str[100] = "1+2*3";
+    char str[100] = "1+2*3^4+5";
     char postfix[100];
     int i = 0, k = 0;
 
@@ -96,7 +90,7 @@ int main() {
 
     while (str[i] != '\0') {
         char ch = str[i];
-        if (ch >= '0' && ch <= '9') {
+        if (ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch >= '0' && ch <= '9') {
             postfix[k++] = ch;
         } else if (ch == '(') {
             push(op, ch);
@@ -105,7 +99,7 @@ int main() {
                 postfix[k++] = pop(op);
             }
             pop(op); // Remove '('
-        } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/') {
+        } else if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^') {
             while (!isEmpty(op) && precedence(peek(op)) >= precedence(ch)) {
                 postfix[k++] = pop(op);
             }
@@ -119,7 +113,7 @@ int main() {
     postfix[k] = '\0';
 
     printf("Postfix: %s\n", postfix);
-    getch();
+    // getch();
     free(op->arr);
     free(op);
     return 0;

@@ -9,39 +9,28 @@ struct stack {
 };
 
 int isEmpty(struct stack *ptr){
-	if(ptr->top == -1){
-		return 1;
-	}
-	else{
-		return 0;
-	}
+	return ptr->top == -1;
 }
 
 int isFull(struct stack *ptr){
-	if(ptr->top < ptr->size-1){
-		return 0;
-	}
-	else{
-		return 1;
-	}
+    return ptr->top == ptr->size-1;
 }
 
 int push(struct stack *ptr,int value){
 	if(!isFull(ptr)){
 		ptr->top++;
 		ptr->arr[ptr->top] = value;
-		return value;
+		return 1;
 	}else{
 		printf("\nStack Overflowed: stack is full!");
-		return -1;
+		return 0;
 	}
 }
 
 int pop(struct stack *ptr){
     if(!isEmpty(ptr)){
 	int temp = ptr->arr[ptr->top];
-	ptr->arr[ptr->top] = 0;
-	ptr->top--;
+	ptr->arr[ptr->top--] = 0;
 	return temp;
     }else{
 	printf("\nStack Underflowed: stack is empty!");
@@ -50,7 +39,10 @@ int pop(struct stack *ptr){
 }
 
 int peek(struct stack *ptr){
-	if(ptr->top == -1) printf("Stack is empty!");
+	if(isEmpty(ptr)){
+		printf("Stack is empty!");
+		return -1;
+	}
 	else return ptr->arr[ptr->top];
 }
 
