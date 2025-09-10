@@ -65,19 +65,17 @@ void sAlloc(struct stack *ptr,int size){
 }
 int main() {
 	struct stack *s = (struct stack*) malloc(sizeof(struct stack));
-	char str[20] = "[{(a+b) * c} - d]";
+	char str[100];
 	int i;
 	if (s == NULL) {
 		printf("Memory allocation failed");
 		return 1;
 	}
+	printf("Enter String to Evalute: ");
+	scanf("%s",&str);
 
-	sAlloc(s,20);
+	sAlloc(s,100);
 	// clrscr();
-	printf("Original String: ");
-	for(i = 0; str[i] != '\0';i++){
-		printf("%c",str[i]);
-	}
 
     for(i = 0; str[i] != '\0';i++){
         if(str[i] == '(' || str[i] == '{' || str[i] == '['){
@@ -108,9 +106,9 @@ int main() {
         }
 	}
 	if(isEmpty(s)){
-        printf("\nExpression is Valid!");
+        printf("Expression is Valid!");
     }else{
-        printf("\nExpression is not Valid!");
+        printf("Expression is not Valid!");
 
     }
 	// getch();

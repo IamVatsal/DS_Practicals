@@ -67,14 +67,17 @@ void sAlloc(struct stack *ptr,int size){
 
 int main() {
 	struct stack *s = (struct stack*) malloc(sizeof(struct stack));
-	char str[20] = "ababCbaba";
+	char str[100];
 	int i = 0;
 	if (s == NULL) {
 		printf("Memory allocation failed");
 		return 1;
 	}
 
-	sAlloc(s,20);
+	printf("Enter String :");
+	scanf("%s",&str);
+
+	sAlloc(s,100);
 	// clrscr();
 	while(str[i] != 'C' && str[i] != '\0' && str[i] != 'c'){
 		if(str[i] == 'a' || str[i] == 'b'){

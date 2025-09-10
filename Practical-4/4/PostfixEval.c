@@ -72,14 +72,16 @@ int toInt(char ch){
 
 int main() {
     struct stack *num = (struct stack*) malloc(sizeof(struct stack));
-    char postfix[100] = "1234^*+5+"; 
+    char postfix[100]; 
     int result = 0;
     int temp = 0;
     int i = 0, j = 0;
 
+    printf("Enter String to Evalute: ");
+	scanf("%s",&postfix);
+
     sAlloc(num, 100);
     // clrscr();
-    printf("Postfix: %s\n", postfix);
 
     while(postfix[i] != '\0'){
         char ch = postfix[i];

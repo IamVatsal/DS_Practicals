@@ -80,13 +80,15 @@ char precedence(char operator) {
 
 int main() {
     struct stack *op = (struct stack*) malloc(sizeof(struct stack));
-    char str[100] = "1+2*3^4+5";
+    char str[100];
     char postfix[100];
     int i = 0, k = 0;
 
+    printf("Enter String to Evalute: ");
+	scanf("%s",&str);
+
     sAlloc(op, 100);
     // clrscr();
-    printf("Infix: %s\n", str);
 
     while (str[i] != '\0') {
         char ch = str[i];
