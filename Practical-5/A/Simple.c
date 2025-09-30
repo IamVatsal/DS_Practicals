@@ -56,6 +56,7 @@ void display(struct queue *ptr){
 	for(i = 0;i < ptr->top+1; i++){
 		printf("%d ", ptr->arr[i]);
 	}
+	printf("\n");
 }
 
 void sAlloc(struct queue *ptr,int size){
@@ -88,7 +89,7 @@ int main() {
 	}
     display(q);
 
-    printf("\nDequeue: %d",dequeue(q));
+    printf("\nDequeue: %d\n",dequeue(q));
 
     display(q);
 

@@ -10,8 +10,7 @@ struct queue {
 };
 
 int isEmpty(struct queue *ptr){
-    if(ptr->front == -1 && ptr->end == -1) return 1;
-	return ptr->end == ptr->front - 1;
+    return ptr->front == ptr->end;
 }
 
 int isFull(struct queue *ptr){
@@ -30,13 +29,12 @@ int enqueue(struct queue *ptr,int value){
 }
 
 int dequeue(struct queue *ptr){
-    int i;
     if(!isEmpty(ptr)){
-	    int temp = ptr->arr[ptr->front++];
+	    int temp = ptr->arr[++ptr->front];
 	    return temp;
     }else{
 	    printf("\nQueue Underflowed: Queue is empty!");
-	return -1;
+		return -1;
     }
 }
 
@@ -45,21 +43,22 @@ int peek(struct queue *ptr){
 		printf("Queue is empty!");
 		return -1;
 	}
-	else return ptr->arr[ptr->front];
+	else return ptr->arr[ptr->front + 1];
 }
 
 void display(struct queue *ptr){
 	int i;
 	printf("\nQueue: ");
-	for(i = ptr->front; i < ptr->end+1; i++){
+	for(i = ptr->front + 1; i <= ptr->end; i++){
 		printf("%d ", ptr->arr[i]);
 	}
+	printf("\n");
 }
 
 void sAlloc(struct queue *ptr,int size){
 	ptr->size = size;
 	ptr->end = -1;
-    ptr->front = 0;
+    ptr->front = -1;
 	ptr->arr = (int *) malloc(ptr->size * sizeof(int));
 	if (ptr->arr == NULL) {
 		printf("Memory allocation failed");
@@ -91,7 +90,8 @@ int main() {
     printf("\nDequeue: %d",dequeue(q));
     printf("\nDequeue: %d",dequeue(q));
     printf("\nDequeue: %d",dequeue(q));
-
+	
+	printf("\n");
     display(q);
 
 	// getch();

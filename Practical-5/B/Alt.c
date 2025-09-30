@@ -5,23 +5,22 @@
 struct queue {
 	int size;
     int front;
-	int end;
+	int back;
 	int* arr;
 };
 
 int isEmpty(struct queue *ptr){
-    if(ptr->front == -1 && ptr->end == -1) return 1;
-	return ptr->end == ptr->front - 1;
+    return ptr->front == ptr->back;
 }
 
 int isFull(struct queue *ptr){
-    return ptr->end == ptr->size-1;
+    return (ptr->back + 1) % ptr->size == ptr->front;
 }
 
 int enqueue(struct queue *ptr,int value){
 	if(!isFull(ptr)){
-		ptr->end++;
-		ptr->arr[ptr->end] = value;
+		ptr->back = (ptr->back + 1) % ptr->size;
+		ptr->arr[ptr->back] = value;
 		return 1;
 	}else{
 		printf("\nQueue Overflowed: Queue is full!");
@@ -30,13 +29,13 @@ int enqueue(struct queue *ptr,int value){
 }
 
 int dequeue(struct queue *ptr){
-    int i;
     if(!isEmpty(ptr)){
-	    int temp = ptr->arr[ptr->front++];
+		ptr->front = (ptr->front + 1) % ptr->size;
+	    int temp = ptr->arr[ptr->front];
 	    return temp;
     }else{
 	    printf("\nQueue Underflowed: Queue is empty!");
-	return -1;
+		return -1;
     }
 }
 
@@ -45,21 +44,23 @@ int peek(struct queue *ptr){
 		printf("Queue is empty!");
 		return -1;
 	}
-	else return ptr->arr[ptr->front];
+	else return ptr->arr[(ptr->front + 1) % ptr->size];
 }
 
 void display(struct queue *ptr){
 	int i;
 	printf("\nQueue: ");
-	for(i = ptr->front; i < ptr->end+1; i++){
-		printf("%d ", ptr->arr[i]);
+	if(!isEmpty(ptr)){
+		for(i = (ptr->front + 1) % ptr->size; i != (ptr->back + 1) % ptr->size; i = (i + 1) % ptr->size){
+			printf("%d ", ptr->arr[i]);
+		}
 	}
 }
 
 void sAlloc(struct queue *ptr,int size){
 	ptr->size = size;
-	ptr->end = -1;
-    ptr->front = -1;
+	ptr->back = 0;
+    ptr->front = 0;
 	ptr->arr = (int *) malloc(ptr->size * sizeof(int));
 	if (ptr->arr == NULL) {
 		printf("Memory allocation failed");
@@ -80,10 +81,10 @@ int main() {
 	scanf("%d",&size);
 	sAlloc(q,size);
 
-	for(i = 0; i < size; i++){
-		printf("Push Num In queue: ");
+	for(i = 0; i < size - 1; i++){
+		printf("Push num In queue: ");
 		scanf("%d",&temp);
-		enqueue(q,temp);
+		if(!enqueue(q,temp)) break;
 	}
     display(q);
 
@@ -91,7 +92,15 @@ int main() {
     printf("\nDequeue: %d",dequeue(q));
     printf("\nDequeue: %d",dequeue(q));
     printf("\nDequeue: %d",dequeue(q));
-
+	
+	printf("\n");
+	display(q);
+	printf("\n");
+	for(i = 0; i < 2; i++){
+		printf("Push num In queue: ");
+		scanf("%d",&temp);
+		enqueue(q,temp);
+	}
     display(q);
 
 	// getch();
