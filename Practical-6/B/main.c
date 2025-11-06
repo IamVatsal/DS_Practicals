@@ -25,7 +25,18 @@ struct Node* createNode(int data) {
 
 int insertAtFirst(struct Node** head, int data) {
     struct Node* node = createNode(data);
+    if (*head == NULL) {
+        node->next = node;
+        *head = node;
+        return 0;
+    }
+    // Find last node to update its next pointer
+    struct Node* temp = *head;
+    while (temp->next != *head) {
+        temp = temp->next;
+    }
     node->next = *head;
+    temp->next = node;
     *head = node;
     return 0;
 }
@@ -35,8 +46,21 @@ int deleteAtFirst(struct Node** head) {
         printf("List is empty, cannot delete.\n");
         return -1;
     }
+    else if ((*head)->next == *head) {
+        free(*head);
+        *head = NULL;
+        return 0;
+    }
+
+    // Find the last node
+    struct Node* last = *head;
+    while (last->next != *head) {
+        last = last->next;
+    }
+
     struct Node* temp = *head;
     *head = (*head)->next;
+    last->next = *head;
     free(temp);
     return 0;
 }
@@ -44,14 +68,16 @@ int deleteAtFirst(struct Node** head) {
 int insertAtLast(struct Node** head, int data) {
     struct Node* node = createNode(data);
     if (*head == NULL) {
+        node->next = node;
         *head = node;
         return 0;
     }
     struct Node* temp = *head;
-    while (temp->next != NULL) {
+    while (temp->next != *head) {
         temp = temp->next;
     }
     temp->next = node;
+    node->next = *head;
     return 0;
 }
 
@@ -61,19 +87,19 @@ int deleteAtLast(struct Node** head) {
         return -1;
     }
 
-    if ((*head)->next == NULL) {
+    if ((*head)->next == *head) {
         free(*head);
         *head = NULL;
         return 0;
     }
 
     struct Node* temp = *head;
-    while (temp->next->next != NULL) {
+    while (temp->next->next != *head) {
         temp = temp->next;
     }
 
     free(temp->next);
-    temp->next = NULL;
+    temp->next = *head;
 
     return 0;
 }
@@ -85,8 +111,8 @@ int insertAfterspecifiednode(struct Node** head, int pos, int data) {
     }
     struct Node* temp = *head;
     for (int i = 0; i < pos; i++) {
-        if (temp->next == NULL) {
-            printf("Position out of bounds.\n");
+        if (temp->next == *head) {
+            printf("Position out of bounds\n");
             return -1;
         }
         temp = temp->next;
@@ -104,17 +130,13 @@ int deleteAfterspecifiednode(struct Node** head, int pos) {
     }
     struct Node* temp = *head;
     for (int i = 0; i < pos; i++) {
-        if (temp->next == NULL) {
-            printf("Position out of bounds.\n");
+        if (temp->next == *head) {
+            printf("Position out of bounds\n");
             return -1;
         }
         temp = temp->next;
     }
     struct Node* deletionNode = temp->next;
-    if (deletionNode == NULL) {
-        printf("No node to delete after the specified position.\n");
-        return -1;
-    }
     temp->next = deletionNode->next;
     free(deletionNode);
     return 0;
@@ -122,44 +144,49 @@ int deleteAfterspecifiednode(struct Node** head, int pos) {
 
 
 void Traverse(struct Node* head) {
+    if (head == NULL) {
+        printf("List is empty\n");
+        return;
+    }
     struct Node* temp = head;
-    while (temp != NULL) {
+    do {
         printf("%d -> ", temp->data);
         temp = temp->next;
-    }
-    printf("NULL\n");
+    } while (temp != head);
+    printf("(Head)\n");
 }
 
 int main() {
-    struct Node* LL = NULL;
+    struct Node* circularLL = NULL;
 
     // Testing InsertAtLast
-    insertAtLast(&LL, 20);
-    Traverse(LL);
-    insertAtLast(&LL, 30);
-    Traverse(LL);
+    insertAtLast(&circularLL, 20);
+    Traverse(circularLL);
+    insertAtLast(&circularLL, 30);
+    Traverse(circularLL);
 
     // Testing InsertAtFirst
-    insertAtFirst(&LL, 10);
-    Traverse(LL);
-    insertAtFirst(&LL, 5);
-    Traverse(LL);
+    insertAtFirst(&circularLL, 10);
+    Traverse(circularLL);
+    insertAtFirst(&circularLL, 5);
+    Traverse(circularLL);
 
     // Testing InsertAfterspecifiednode
-    insertAfterspecifiednode(&LL, 2, 25);
-    Traverse(LL);
+    insertAfterspecifiednode(&circularLL, 2, 25);
+    Traverse(circularLL);
+    display1(circularLL);
 
     // Testing DeleteAfterspecifiednode
-    deleteAfterspecifiednode(&LL, 2);
-    Traverse(LL);
+    deleteAfterspecifiednode(&circularLL, 2);
+    Traverse(circularLL);
 
     // Testing DeleteAtFirst
-    deleteAtFirst(&LL);
-    Traverse(LL);
+    deleteAtFirst(&circularLL);
+    Traverse(circularLL);
 
     // Testing DeleteAtLast
-    deleteAtLast(&LL);
-    Traverse(LL);
+    deleteAtLast(&circularLL);
+    Traverse(circularLL);
 
     return 0;
 }
