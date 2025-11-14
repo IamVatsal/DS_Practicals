@@ -130,6 +130,17 @@ void Traverse(struct Node* head) {
     printf("NULL\n");
 }
 
+void freeList(struct Node** head) {
+    struct Node* current = *head;
+    struct Node* next;
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    *head = NULL;
+}
+
 int main() {
     struct Node* LL = NULL;
 
@@ -160,6 +171,9 @@ int main() {
     // Testing DeleteAtLast
     deleteAtLast(&LL);
     Traverse(LL);
+    
+    // Free the entire list
+    freeList(&LL);
 
     return 0;
 }

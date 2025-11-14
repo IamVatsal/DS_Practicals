@@ -156,6 +156,22 @@ void Traverse(struct Node* head) {
     printf("(Head)\n");
 }
 
+void freeList(struct Node** head) {
+    if (*head == NULL) {
+        return;  // Nothing to free
+    }
+    
+    struct Node* current = *head;
+    struct Node* first = *head;
+    struct Node* next;
+    do {
+        next = current->next;
+        free(current);
+        current = next;
+    } while (current != first);
+    *head = NULL;
+}
+
 int main() {
     struct Node* circularLL = NULL;
 
@@ -174,7 +190,6 @@ int main() {
     // Testing InsertAfterspecifiednode
     insertAfterspecifiednode(&circularLL, 2, 25);
     Traverse(circularLL);
-    display1(circularLL);
 
     // Testing DeleteAfterspecifiednode
     deleteAfterspecifiednode(&circularLL, 2);
@@ -187,6 +202,9 @@ int main() {
     // Testing DeleteAtLast
     deleteAtLast(&circularLL);
     Traverse(circularLL);
+
+    // Free the entire list
+    freeList(&circularLL);
 
     return 0;
 }

@@ -149,36 +149,50 @@ void Traverse(struct Node* head) {
     printf("NULL\n");
 }
 
+void freeList(struct Node** head) {
+    struct Node* current = *head;
+    struct Node* next;
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
+    }
+    *head = NULL;
+}
+
 int main() {
-    struct Node* LL = NULL;
+    struct Node* doublyLL = NULL;
 
     // Testing InsertAtLast
-    insertAtLast(&LL, 20);
-    Traverse(LL);
-    insertAtLast(&LL, 30);
-    Traverse(LL);
+    insertAtLast(&doublyLL, 20);
+    Traverse(doublyLL);
+    insertAtLast(&doublyLL, 30);
+    Traverse(doublyLL);
 
     // Testing InsertAtFirst
-    insertAtFirst(&LL, 10);
-    Traverse(LL);
-    insertAtFirst(&LL, 5);
-    Traverse(LL);
+    insertAtFirst(&doublyLL, 10);
+    Traverse(doublyLL);
+    insertAtFirst(&doublyLL, 5);
+    Traverse(doublyLL);
 
     // Testing InsertAfterspecifiednode
-    insertAfterspecifiednode(&LL, 2, 25);
-    Traverse(LL);
+    insertAfterspecifiednode(&doublyLL, 2, 25);
+    Traverse(doublyLL);
 
     // Testing DeleteAfterspecifiednode
-    deleteAfterspecifiednode(&LL, 2);
-    Traverse(LL);
+    deleteAfterspecifiednode(&doublyLL, 2);
+    Traverse(doublyLL);
 
     // Testing DeleteAtFirst
-    deleteAtFirst(&LL);
-    Traverse(LL);
+    deleteAtFirst(&doublyLL);
+    Traverse(doublyLL);
 
     // Testing DeleteAtLast
-    deleteAtLast(&LL);
-    Traverse(LL);
+    deleteAtLast(&doublyLL);
+    Traverse(doublyLL);
 
+    // Free the entire list
+    freeList(&doublyLL);
+    
     return 0;
 }
